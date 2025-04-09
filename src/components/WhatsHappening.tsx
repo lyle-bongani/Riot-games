@@ -4,10 +4,18 @@ import styled from 'styled-components';
 
 const Section = styled.section`
   position: relative;
-  padding: 2rem;
-  margin-botton: 2rem;
+  padding: 3rem 1rem;
   color: white;
   overflow: hidden;
+  
+  @media (min-width: 768px) {
+    padding: 4rem 2rem;
+  }
+  
+  @media (min-width: 1024px) {
+    padding: 5rem 2rem;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -22,178 +30,251 @@ const Section = styled.section`
   }
 `;
 
+const Container = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+`;
+
 const Header = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
 `;
 
 const Title = styled.h2`
-  font-family: "Riot", Arial, sans-serif; /* Update font */
-  font-size: 50px;
-  font-weight: 600;
-  line-height: 28.8px;
+  font-family: "Riot", Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
   color: #fff;
+  margin: 0;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: #d13639;
+    border-radius: 2px;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 2.5rem;
+    &::after {
+      bottom: -0.75rem;
+      width: 50px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 3rem;
+    &::after {
+      width: 60px;
+    }
+  }
 `;
 
 const SeeMoreButton = styled.button`
-background: none;
-  border: 1px solid white;
+  background: none;
+  border: 2px solid white;
   color: white;
   cursor: pointer;
-  border-radius: 10px; /* Add corner radius */
-  padding: 0.5rem 1rem;
-  transition: filter 0.3s ease;
-  &:hover,
-  &:active {
-    filter: brightness(0) saturate(100%) invert(21%) sepia(100%) saturate(7488%) hue-rotate(357deg) brightness(101%) contrast(107%);
+  border-radius: 24px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  width: 100%;
+  
+  @media (min-width: 768px) {
+    width: auto;
+  }
+  
+  &:hover {
+    background: white;
+    color: black;
   }
 `;
 
 const Content = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  
+  @media (min-width: 1024px) {
+    grid-template-columns: 2fr 1fr;
+  }
 `;
 
-const Icon = styled.div`
-  padding-top: 2rem;
-  gap: 5px;
+const MainNews = styled.div`
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  
+  &:hover img {
+    transform: scale(1.05);
+  }
 `;
 
-const LeftSide = styled.div`
-  flex: 2;
-  margin-right: 1rem;
+const MainImage = styled.img`
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 `;
 
-const RightSide = styled.div`
-  flex: 1;
+const MainContent = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    transparent 100%
+  );
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+`;
+
+const MainTitle = styled.h3`
+  font-family: "Riot", Arial, sans-serif;
+  font-size: 1.5rem;
+  color: white;
+  margin: 0 0 1rem;
+  
+  @media (min-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+
+const MainDescription = styled.p`
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
+
+const NewsList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
 `;
 
-const Image = styled.img`
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
+const NewsCard = styled.a`
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+`;
+
+const NewsImage = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
   object-fit: cover;
-  cursor: pointer; /* Add cursor pointer */
-`;
-
-const SmallCard = styled.div`
-  position: relative;
-  display: flex;
-  padding-left: 2rem; /* Add padding to the left side */
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('./images/background.jpeg') no-repeat center center;
-    background-size: cover;
-    filter: blur(10px); /* Ensure the background image is blurry */
-    z-index: -1;
+  
+  @media (min-width: 768px) {
+    width: 120px;
+    height: 120px;
   }
-`;
+` as any;
 
-const CardContent = styled.div`
+const NewsContent = styled.div`
   flex: 1;
-  position: relative;
-  z-index: 1;
-`;
+` as any;
 
-const CardImage = styled.img`
-  width: 50%; /* Cover half the card */
-  height: auto;
-  border-radius: 10px;
-  margin-left: 1rem;
-  border: none; /* Remove border */
-  position: relative;
-  z-index: 1;
-`;
-
-const CardTitle = styled.h2`
-  font-family: "FF Mark W05", Arial, sans-serif;
-  font-size: 40px;
-  font-weight: 500;
-  line-height: 38.6px;
-  color: #fff;
-`;
-
-const SmallCardTitle = styled.h6`
-  font-family: "FF Mark W05", Arial, sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 21.6px;
-  color: #fff; /* Update color to white */
-  margin-bottom: 0.5rem;
-  a {
-    color: white;
-    text-decoration: none; /* Remove underline */
+const NewsTitle = styled.h4`
+  font-family: "Riot", Arial, sans-serif;
+  font-size: 1rem;
+  color: white;
+  margin: 0 0 0.5rem;
+  
+  @media (min-width: 768px) {
+    font-size: 1.125rem;
   }
 `;
 
-const CardDescription = styled.p`
-  font-family: Arial, sans-serif;
-  font-size: 16px; /* Make text bigger */
-  line-height: 20px; /* Make text bigger */
-  color: white; /* Ensure text is white */
-  display: flex;
-  align-items: center;
-  gap: 0.5rem; /* Add gap between icon and text */
+const NewsDate = styled.span`
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const WhatsHappening: React.FC = () => {
   return (
     <Section>
-      <Header>
-        <Title>What's happening?</Title>
-        <SeeMoreButton>See more</SeeMoreButton>
-      </Header>
-      <Content>
-        <LeftSide>
-          <Image src="https://img.youtube.com/vi/ukhcyHb5kHA/maxresdefault.jpg" alt="event-1" />
-          <CardTitle>Dawn of the Duelist // VALORANT Masters <br /> Bangkok Cinematic</CardTitle>
-          <CardDescription><FaNewspaper size={24} />News</CardDescription> {/* Make icon bigger */}
-        </LeftSide>
-        <RightSide>
-          <SmallCard>
-            <CardContent>
-              <SmallCardTitle><a href="https://valorantesports.com/en-US/news/masters-bangkok-eyntk-2025">Masters Bangkok: <br /> EYNTK</a></SmallCardTitle>
-              <CardDescription><FaNewspaper size={24} />News</CardDescription> {/* Make icon bigger */}
-            </CardContent>
-            <CardImage src="./images/event-1.avif" alt="event-1" />
-          </SmallCard>
-          <SmallCard>
-            <CardContent>
-              <SmallCardTitle><a href="https://www.riotgames.com/en/news/ewc-2025">Why We’re Returning <br /> to the Esports Wor...</a></SmallCardTitle>
-              <CardDescription><FaNewspaper size={24} />News</CardDescription> {/* Make icon bigger */}
-            </CardContent>
-            <CardImage src="./images/event-2.png" alt="event-2" />
-          </SmallCard>
-          <SmallCard>
-            <CardContent>
-              <SmallCardTitle><a href="https://www.riotgames.com/en/news/year-snake-league-valorant">Celebrating the Year <br /> of the Snake</a></SmallCardTitle>
-              <CardDescription><FaNewspaper size={24} />News</CardDescription> {/* Make icon bigger */}
-            </CardContent>
-            <CardImage src="./images/event-3.png" alt="event-3" />
-          </SmallCard>
-          <SmallCard>
-            <CardContent>
-              <SmallCardTitle><a href="https://www.youtube.com/watch?v=wvHbfxNcfgk">Dev Double Up: <br /> Making Unbound a...</a></SmallCardTitle>
-              <CardDescription><FaNewspaper size={24} />News</CardDescription> {/* Make icon bigger */}
-            </CardContent>
-            <CardImage src="https://img.youtube.com/vi/wvHbfxNcfgk/mqdefault.jpg" alt="event-4" />
-          </SmallCard>
-        </RightSide>
-      </Content>
+      <Container>
+        <Header>
+          <Title>What's Happening</Title>
+          <SeeMoreButton>See More News</SeeMoreButton>
+        </Header>
+        <Content>
+          <MainNews>
+            <MainImage src="https://img.youtube.com/vi/5hugGCZon3I/maxresdefault.jpg" alt="Project L news" />
+            <MainContent>
+              <MainTitle>Project L: The Fighting Game Set in the League Universe</MainTitle>
+              <MainDescription>
+                Get ready for an exciting new chapter in the League of Legends universe with Project L,
+                our upcoming fighting game featuring iconic champions.
+              </MainDescription>
+            </MainContent>
+          </MainNews>
+          <NewsList>
+            <NewsCard href="#">
+              <NewsImage src="https://img.youtube.com/vi/OHzUoFKPUB0/maxresdefault.jpg" alt="Valorant news" />
+              <NewsContent>
+                <NewsTitle>Valorant's New Agent Revealed</NewsTitle>
+                <NewsDate>2 days ago</NewsDate>
+              </NewsContent>
+            </NewsCard>
+            <NewsCard href="#">
+              <NewsImage src="https://img.youtube.com/vi/9nb-woMTdVI/maxresdefault.jpg" alt="League of Legends news" />
+              <NewsContent>
+                <NewsTitle>League of Legends Patch Notes 13.10</NewsTitle>
+                <NewsDate>4 days ago</NewsDate>
+              </NewsContent>
+            </NewsCard>
+            <NewsCard href="#">
+              <NewsImage src="https://img.youtube.com/vi/liNLLx874g4/maxresdefault.jpg" alt="TFT news" />
+              <NewsContent>
+                <NewsTitle>TFT Set 9 Preview</NewsTitle>
+                <NewsDate>1 week ago</NewsDate>
+              </NewsContent>
+            </NewsCard>
+          </NewsList>
+        </Content>
+      </Container>
     </Section>
   );
 };

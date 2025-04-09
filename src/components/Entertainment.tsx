@@ -14,12 +14,16 @@ interface EntertainmentItem {
 }
 
 const Section = styled.section`
-  padding: 4rem 2rem;
+  padding: 3rem 1rem;
   background-color: rgb(46, 46, 46);
   color: white;
   
-  @media (max-width: 768px) {
-    padding: 3rem 1.5rem;
+  @media (min-width: 768px) {
+    padding: 4rem 2rem;
+  }
+  
+  @media (min-width: 1024px) {
+    padding: 5rem 2rem;
   }
 `;
 
@@ -27,30 +31,62 @@ const Header = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   gap: 2rem;
   max-width: 1400px;
-  margin: 0 auto 3rem;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+  
+  @media (min-width: 768px) {
+    margin-bottom: 3rem;
+  }
 `;
 
 const Title = styled.h2`
   font-family: "Riot", Arial, sans-serif;
-  font-size: 50px;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 700;
   line-height: 1.2;
   color: #fff;
   margin: 0;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: #d13639;
+    border-radius: 2px;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 2.5rem;
+    &::after {
+      bottom: -0.75rem;
+      width: 50px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 3rem;
+    &::after {
+      width: 60px;
+    }
+  }
 `;
 
 const Content = styled.div`
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 1rem;
 `;
 
 const FilterContainer = styled.div`
   display: flex;
-  gap: 3rem;
+  gap: 1.5rem;
   align-items: center;
   width: 100%;
   padding: 1rem 0;
@@ -98,7 +134,7 @@ const FilterButton = styled.button<{ active: boolean }>`
   padding: 0.75rem 0;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: ${props => props.active ? '600' : '400'};
   position: relative;
   letter-spacing: 0.5px;
@@ -106,149 +142,41 @@ const FilterButton = styled.button<{ active: boolean }>`
   text-transform: uppercase;
   font-family: "Riot", Arial, sans-serif;
   
+  @media (min-width: 768px) {
+    font-size: 1.25rem;
+  }
+  
   &::before {
     content: '';
     position: absolute;
-    bottom: -1rem;
+    bottom: -1px;
     left: 50%;
     width: ${props => props.active ? '100%' : '0'};
-    height: 3px;
-    background: linear-gradient(
-      90deg,
-      rgba(209, 54, 57, 0.8) 0%,
-      rgba(209, 54, 57, 1) 50%,
-      rgba(209, 54, 57, 0.8) 100%
-    );
-    transform: translateX(-50%) scaleX(${props => props.active ? 1 : 0});
-    transform-origin: center;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 4px;
-    box-shadow: ${props => props.active ? '0 0 10px rgba(209, 54, 57, 0.5), 0 0 20px rgba(209, 54, 57, 0.3)' : 'none'};
+    height: 2px;
+    background: #d13639;
+    transform: translateX(-50%);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  &:hover {
-    color: white;
-    transform: translateY(-1px);
-    
-    &::before {
-      width: 100%;
-      transform: translateX(-50%) scaleX(1);
-      background: linear-gradient(
-        90deg,
-        rgba(209, 54, 57, 0.6) 0%,
-        rgba(209, 54, 57, 0.8) 50%,
-        rgba(209, 54, 57, 0.6) 100%
-      );
-    }
-  }
-
-  &:first-child {
-    padding-left: 0;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -1.5rem;
-    width: 4px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: translateY(-50%);
-  }
-
-  &:last-child::after {
-    display: none;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 1rem;
-    padding: 0.5rem 0;
-  }
-`;
-
-const MasonryGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  
-  @media (max-width: 1200px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-`;
-
-const EntertainmentItem = styled.div`
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  transform: translateZ(0);
-  aspect-ratio: 16/9;
-  
-  &:hover {
-    .preview-overlay {
-      opacity: 1;
-    }
-    
-    img {
-      transform: scale(1.05);
-    }
-  }
-`;
-
-const ItemImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s ease;
-`;
-
-const ActionButtons = styled.div`
-  display: flex;
-  gap: 1.25rem;
-  margin-top: auto;
-  flex-wrap: wrap;
-`;
-
-const ActionButton = styled.a`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1.5rem;
-  background: rgba(209, 54, 57, 0.95);
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  
-  &:hover {
-    background: #ff424b;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  &.secondary {
-    background: rgba(255, 255, 255, 0.15);
-    
-    &:hover {
-      background: rgba(255, 255, 255, 0.25);
-    }
-  }
-  
-  @media (max-width: 768px) {
+  &:hover::before {
     width: 100%;
-    justify-content: center;
+  }
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+  
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
   }
 `;
 
@@ -269,34 +197,111 @@ const PreviewOverlay = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2rem;
+  padding: 1.5rem;
   
-  @media (max-width: 768px) {
-    padding: 1.5rem;
+  @media (min-width: 768px) {
+    padding: 2rem;
   }
+`;
+
+const PreviewCard = styled.div`
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  aspect-ratio: 16/9;
+  
+  &:hover {
+    img {
+      transform: scale(1.05);
+    }
+    
+    ${PreviewOverlay} {
+      opacity: 1;
+    }
+  }
+`;
+
+const PreviewImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 `;
 
 const ItemTitle = styled.h3`
   font-family: "Riot", Arial, sans-serif;
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   color: white;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.5rem 0;
   line-height: 1.2;
   
-  @media (max-width: 768px) {
+  @media (min-width: 768px) {
     font-size: 1.5rem;
+    margin: 0 0 0.75rem 0;
   }
 `;
 
 const ItemDescription = styled.p`
   color: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
-  margin: 0 0 1.5rem 0;
+  font-size: 0.875rem;
+  margin: 0 0 1rem 0;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   line-height: 1.5;
+  
+  @media (min-width: 768px) {
+    font-size: 1rem;
+    margin: 0 0 1.5rem 0;
+  }
+`;
+
+const ActionButtons = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  margin-top: auto;
+  flex-wrap: wrap;
+  
+  @media (min-width: 768px) {
+    gap: 1rem;
+  }
+`;
+
+const ActionButton = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(209, 54, 57, 0.95);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  
+  @media (min-width: 768px) {
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+  }
+  
+  &:hover {
+    background: #ff424b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  &.secondary {
+    background: rgba(255, 255, 255, 0.15);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+  }
 `;
 
 const VideoModal = styled.div<{ isOpen: boolean }>`
@@ -305,12 +310,16 @@ const VideoModal = styled.div<{ isOpen: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.95);
   display: ${props => props.isOpen ? 'flex' : 'none'};
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 2rem;
+  padding: 1rem;
+  
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
 `;
 
 const VideoContainer = styled.div`
@@ -331,16 +340,25 @@ const VideoContainer = styled.div`
 
 const CloseButton = styled.button`
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 1rem;
+  right: 1rem;
   background: none;
   border: none;
   color: white;
-  font-size: 2rem;
+  font-size: 1.5rem;
   cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  
+  @media (min-width: 768px) {
+    top: 2rem;
+    right: 2rem;
+    font-size: 2rem;
+  }
   
   &:hover {
     color: #d13639;
+    transform: scale(1.1);
   }
 `;
 
@@ -458,10 +476,10 @@ const Entertainment: React.FC = () => {
         </FilterContainer>
       </Header>
       <Content>
-        <MasonryGrid>
+        <Grid>
           {filteredItems.map((item, index) => (
-            <EntertainmentItem key={index}>
-              <ItemImage src={item.src} alt={item.alt} />
+            <PreviewCard key={index}>
+              <PreviewImage src={item.src} alt={item.alt} />
               <PreviewOverlay className="preview-overlay">
                 <ItemTitle>{item.title}</ItemTitle>
                 <ItemDescription>{item.description}</ItemDescription>
@@ -484,9 +502,9 @@ const Entertainment: React.FC = () => {
                   </ActionButton>
                 </ActionButtons>
               </PreviewOverlay>
-            </EntertainmentItem>
+            </PreviewCard>
           ))}
-        </MasonryGrid>
+        </Grid>
       </Content>
       
       <VideoModal isOpen={!!selectedVideo} onClick={() => setSelectedVideo(null)}>
