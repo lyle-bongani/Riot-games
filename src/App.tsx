@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useRef, useState } from 'react';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import WhatsHappening from './components/WhatsHappening';
+import Games from './components/Games';
+import Esports from './components/Esports';
+import Entertainment from './components/Entertainment'; // Import Entertainment
+import WereHiring from './components/WereHiring'; // Import WereHiring
+import Footer from './components/Footer'; // Import Footer
 
-function App() {
+const App: React.FC = () => {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 1.0; // Set volume to maximum
+      if (isPlaying) {
+        audioRef.current.play().catch((error) => console.error('Error playing audio:', error));
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [isPlaying]);
+
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header isPlaying={isPlaying} togglePlay={togglePlay} />
+      <Hero />
+      <WhatsHappening />
+      <Games />
+      <Esports />
+      <Entertainment /> {/* Add Entertainment component */}
+      <WereHiring /> {/* Add We're Hiring component */}
+      <Footer /> {/* Add Footer component */}
+      <audio ref={audioRef} autoPlay loop>
+        <source src="./audio/background-music.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+    </>
   );
-}
+};
 
 export default App;
